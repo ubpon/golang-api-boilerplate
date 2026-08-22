@@ -1,0 +1,26 @@
+version: 2
+
+updates:
+  # Keeps action majors current. Without this, a pinned major eventually stops
+  # supporting the tool it wraps -- which is exactly how golangci-lint-action v6
+  # ended up unable to run golangci-lint v2.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: deps
+    groups:
+      go-dependencies:
+        patterns: ["*"]
+        update-types: [minor, patch]
